@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: api-gateway
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+  datasource:
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_USER}
+    url: ${DB_URL}
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              lower-case-service-id: 'true'
+              enabled: 'true'
+springdoc:
+  swagger-ui:
+    urls:
+      - name: customer-service
+        url: /customer-service/api/v1/customer/v3/api-docs
+
+      - name: order-service
+        url: /order-service/api/v1/order/v3/api-docs
+
+      - name: order-detail-service
+        url: /order-detail-service/api/v1/order-detail/v3/api-docs
+
+server:
+  port: '8080'
